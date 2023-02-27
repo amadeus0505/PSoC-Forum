@@ -17,6 +17,7 @@ def login_required(f):
         if "username" not in session.keys():
             return redirect(url_for("login", next=request.url))
         return f(*args, **kwargs)
+
     return decorated_function
 
 
@@ -35,6 +36,11 @@ def login():
     if "error" in request.args.keys():
         g.error = request.args["error"]
     return render_template("login.j2")
+
+
+@app.route("/logout")
+def logout():
+    del session["username"]
 
 
 @app.route("/category/<cat>")
