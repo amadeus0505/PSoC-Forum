@@ -33,7 +33,6 @@ def get_post(category, id):
     return post
 
 
-
 def login_required(f):
     """decorator function if a site should only be visible, if the user is logged in"""
 
@@ -87,4 +86,4 @@ def post(category, post_id):
 
 
 if __name__ == '__main__':
-    app.run(host="127.0.0.1", port=8080, debug=True)
+    app.run(host="127.0.0.1", port=80, debug=True)
