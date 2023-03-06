@@ -22,7 +22,7 @@ def login_required(f):
 
 @app.route('/')
 def home():  # put application's code here
-    return render_template("index.j2")
+    return render_template("Home.html")
 
 
 @app.route("/login", methods=["GET", "POST"])
