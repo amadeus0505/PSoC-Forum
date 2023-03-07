@@ -48,10 +48,10 @@
   <div class="container border w-50 mt-5">
     <!-- Container Unterteilung der Überschrift "Login" -->
     <div class="container my-5">
-      <h1 class="text-center">PSoC Forum Sign up</h1>
+      <h1 class="text-center">PSoC Forum Register</h1>
     </div>
     <!-- Container Unterteilung der Textfelder -->
-    <div class="container me-auto w-75">
+    <div class="container-fluid me-auto w-75">
       <div class="form-floating mb-5">
         <input type="text" class="form-control" id="floatingInput" placeholder="Name">
         <label for="floatingInput">Name</label>
@@ -64,9 +64,16 @@
         <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
         <label for="floatingPassword">Password</label>
       </div>
+            <!-- Checkbox für Regelwerk, Datenschutz- und Nutzungsbedingungen -->
+            <div class="form-check mb-5">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                I have read and agree to the terms
+              </label>
+            </div>
       <!-- Submit Button -->
       <div class="text-center pb-5">
-        <input type="submit" value="Sign up" class="">
+        <input type="submit" value="Register" class="">
       </div>
       <!-- Link zu "Sign up" falls man noch nicht angemeldet ist-->
       <div class="text-center pb-5">
