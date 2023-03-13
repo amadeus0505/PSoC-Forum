@@ -33,6 +33,13 @@ def get_post(category, id):
     return post
 
 
+def register(username, password, name):
+    # implement SQL Here
+    # if username already exists: return False
+    # sonst: anlegen in db und return True
+    pass
+
+
 def login_required(f):
     """decorator function if a site should only be visible, if the user is logged in"""
 
@@ -58,6 +65,17 @@ def login():
             return redirect("/")
         g.error = True
     return render_template("login.j2")
+
+
+@app.route("/signup", methods=["GET", "POST"])
+def signup():
+    if request.method == "POST":
+        # TODO: bei zusammenführung: check form namen
+        if register(request.form["username"], request.form["password"], request.form["name"]):
+            session["username"] = request.form["username"]
+            return redirect("/")
+        g.error = True
+    return render_template("signup.j2")
 
 
 @app.route("/logout")
