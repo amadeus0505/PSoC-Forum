@@ -40,6 +40,15 @@ def register(username, password, name):
     pass
 
 
+def create_post(title, description, category):
+    print(os.getcwd())
+    id = int(os.listdir(f".\\data\\{category}")[-1].strip(".json")) + 1
+    current_post = {"title": title, "desc": description, "id": id}
+    with open(f".\\data\\{category}\\{id}.json", "w") as file:
+        file.write(json.dumps(current_post))
+    return category, id
+
+
 def login_required(f):
     """decorator function if a site should only be visible, if the user is logged in"""
 
@@ -62,7 +71,7 @@ def login():
     if request.method == "POST":
         if check_login(request.form["username"], request.form["password"]):
             session["username"] = request.form["username"]
-            return redirect("/")
+            redirect("/")
         g.error = True
     return render_template("login.j2")
 
@@ -101,6 +110,15 @@ def post(category, post_id):
         return str(post)
     else:
         return "", 404
+
+
+@app.route("/post", methods=["GET", "POST"])
+@login_required
+def new_post():
+    if request.method == "POST":
+        category, id = create_post(request.form["titel"], request.form["description"], request.form["category"])
+        return redirect(f"/post/{category}/{id}")
+    return render_template("new_post.j2")
 
 
 if __name__ == '__main__':
