@@ -8,7 +8,7 @@ app.secret_key = 'any random string'
 
 
 def check_login(username, password):
-    if password == "cod123":
+    if password == "MQq2E3NuZ#7q$q" and username == "breezy4577":
         return True
     return False
 
@@ -89,7 +89,7 @@ def signup():
             session["username"] = request.form["username"]
             return redirect("/")
         g.error = True
-    return render_template("Register.html")
+    return render_template("register.j2")
 
 
 @app.route("/logout")
@@ -121,9 +121,10 @@ def post(category, post_id):
 @login_required
 def new_post():
     if request.method == "POST":
-        category, id = create_post(request.form["titel"], request.form["description"], request.form["category"])
+        category, id = create_post(request.form["titel"], request.form["description"], request.form["category"].lower())
+        print(category)
         return redirect(f"/post/{category}/{id}")
-    return render_template("Question.html")
+    return render_template("question.j2")
 
 
 if __name__ == '__main__':
