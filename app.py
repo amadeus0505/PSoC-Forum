@@ -66,6 +66,11 @@ def home():
     return render_template("Home.html")
 
 
+@app.route("/info")
+def info():
+    return render_template("Info.html")
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -84,7 +89,7 @@ def signup():
             session["username"] = request.form["username"]
             return redirect("/")
         g.error = True
-    return render_template("Signup.html")
+    return render_template("Register.html")
 
 
 @app.route("/logout")
@@ -98,7 +103,7 @@ def logout():
 def category(cat):
     g.cat = cat
     g.posts = get_posts(cat)
-    return render_template("categories.j2")
+    return render_template("Categories.html")
 
 
 @app.route("/post/<category>/<post_id>")
@@ -118,7 +123,7 @@ def new_post():
     if request.method == "POST":
         category, id = create_post(request.form["titel"], request.form["description"], request.form["category"])
         return redirect(f"/post/{category}/{id}")
-    return render_template("new_post.j2")
+    return render_template("Question.html")
 
 
 if __name__ == '__main__':
