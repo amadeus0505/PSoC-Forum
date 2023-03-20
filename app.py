@@ -63,12 +63,12 @@ def login_required(f):
 
 @app.route('/')
 def home():
-    return render_template("Home.html")
+    return render_template("home.j2")
 
 
 @app.route("/info")
 def info():
-    return render_template("Info.html")
+    return render_template("info.j2")
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -76,9 +76,9 @@ def login():
     if request.method == "POST":
         if check_login(request.form["username"], request.form["password"]):
             session["username"] = request.form["username"]
-            redirect("/")
+            return redirect("/")
         g.error = True
-    return render_template("Login.html")
+    return render_template("login.j2")
 
 
 @app.route("/signup", methods=["GET", "POST"])
@@ -103,7 +103,7 @@ def logout():
 def category(cat):
     g.cat = cat
     g.posts = get_posts(cat)
-    return render_template("Categories.html")
+    return render_template("categories.j2")
 
 
 @app.route("/post/<category>/<post_id>")

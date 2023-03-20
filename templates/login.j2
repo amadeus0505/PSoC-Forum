@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form action="/login" method="post">
+{% extends "navbar-template.j2" %}
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <!-- <form action="/login" method="post">
         <label for="">Username</label>
         <input type="text" name="username">
         <br>
@@ -16,8 +11,33 @@
         <br>
         <input type="submit" value="Login">
     </form>
-    {% if g.error %}
-        Wrong Password or Username
-    {% endif %}
-</body>
-</html>
+    -->
+    <!-- Container für die komplette Login-Seite -->
+  <div class="container-fluid border w-50 mt-5">
+    <!-- Container Unterteilung der Überschrift "Login" -->
+    <div class="container my-5">
+      <h1 class="text-center">PSoC Forum Login</h1>
+    </div>
+    <!-- Container Unterteilung der Textfelder -->
+    <form class="container me-auto w-75" action="/login" method="post">
+      <div class="form-floating mb-5">
+        <input type="text" class="form-control" id="floatingInput" placeholder="username" name="username">
+        <label for="floatingInput">Username</label>
+      </div>
+      <div class="form-floating mb-5">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+        <label for="floatingPassword">Password</label>
+      </div>
+        {% if g.error %}
+            <div class="text-center pb-5">
+                Wrong Password or Username <!-- TODO: Make Banner (RED?) -->
+            </div>
+        {% endif %}
+      <!-- Submit Button -->
+      <div class="text-center pb-5">
+        <input type="submit" value="Login" class="">
+      </div>
+      <!-- Link zu "Register" falls man noch nicht angemeldet ist-->
+    </form>
+  </div>
+{% endblock %}

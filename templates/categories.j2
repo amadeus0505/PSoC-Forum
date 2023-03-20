@@ -1,16 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ g.cat }}</title>
-</head>
-<body>
-    <h1>{{ g.cat }}</h1>
-    {% for post in g.posts %}
-            <a href="/post/{{post.id}}"><h3>{{ post.title }}</h3></a>
-            <p>{{ post.desc }}</p>
-    {% endfor %}
-</body>
-</html>
+{% extends "navbar-template.j2" %}
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h1 class="text-center mt-5">PSoC Forum - {{ g.cat.capitalize() }}</h1>
+
+        <div class="container border my-5">
+            {% for post in g.posts %}<div class="card my-3 mx-4">
+                <div class="card-body">
+                    <h3 class="card-title">{{post.title}}</h3>
+                    <p class="card-text">{{ post.desc }}</p>
+                    <a href="/post/{{ g.cat }}/{{ post.id }}" class="btn btn-primary stretched-link">Read more</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
