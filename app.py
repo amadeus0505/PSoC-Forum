@@ -62,11 +62,7 @@ def login_required(f):
 
 
 @app.route('/')
-<<<<<<< HEAD
 def home():
-=======
-def home():  # put application's code here
->>>>>>> frontend
     return render_template("Home.html")
 
 
