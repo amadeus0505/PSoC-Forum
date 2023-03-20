@@ -63,7 +63,7 @@ def login_required(f):
 
 @app.route('/')
 def home():
-    return render_template("index.j2")
+    return render_template("Home.html")
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -73,7 +73,7 @@ def login():
             session["username"] = request.form["username"]
             redirect("/")
         g.error = True
-    return render_template("login.j2")
+    return render_template("Login.html")
 
 
 @app.route("/signup", methods=["GET", "POST"])
@@ -84,7 +84,7 @@ def signup():
             session["username"] = request.form["username"]
             return redirect("/")
         g.error = True
-    return render_template("signup.j2")
+    return render_template("Signup.html")
 
 
 @app.route("/logout")
