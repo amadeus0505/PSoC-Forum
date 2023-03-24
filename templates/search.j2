@@ -1,0 +1,29 @@
+{% extends "navbar-template.j2" %}
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h1 class="text-center mt-5">PSoC Forum - Search for keyword "{{ g.keyword }}"</h1>
+        <div class="container border rounded my-5">
+            {% for post in g.posts %}
+            <div class="card my-3 mx-4">
+                <div class="card-body">
+                    <h3 class="card-title">{{ post.title|e }}</h3>
+                    <h6 class="card-subtitle mb-2 text-muted">by {{ post.author }}</h6>
+                    <p class="card-text" style ="-webkit-line-clamp: 5;display: -webkit-box;-webkit-box-orient: vertical;overflow: hidden; white-space: pre-wrap;">{{ post.desc|e }}</p>
+                    <a href="/post/{{ post["category"] }}/{{ post.id }}" class="btn btn-primary stretched-link mb-2">Read more</a>
+
+                    <!-- TODO: auslagern des styles des Paragraphen -->
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- script for highlighting keyword  -->
+    <script>
+        document.body.innerHTML = document.body.innerHTML.replaceAll(
+            "{{ g.keyword }}",
+            "<span class='bg-warning text-black'>{{ g.keyword }}</span>"
+        );
+    </script>
+{% endblock %}

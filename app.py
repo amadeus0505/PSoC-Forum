@@ -8,6 +8,18 @@ app = Flask(__name__)
 app.secret_key = 'any random string'
 
 
+def search(keyword):
+    posts = []
+    for cat in os.listdir("./data"):
+        for post_path in os.listdir(f"./data/{cat}/"):
+            with open(f"./data/{cat}/{post_path}") as file:
+                post = json.loads(file.read())
+            if keyword in post["desc"] or keyword in post["title"]:
+                post["category"] = cat
+                posts.append(post)
+
+    return posts
+
 def check_login(username, password):
     return sql.check_pw(username, password)
 
@@ -141,5 +153,17 @@ def new_post():
     return render_template("question.j2")
 
 
+@app.route("/search")
+def display_search():
+    keyword = request.args["search"]
+    posts = search(keyword)
+    g.keyword = keyword
+    for post in posts:
+        print(post["category"])
+    g.posts = posts
+    return render_template("search.j2", keyword=keyword)
+
+
 if __name__ == '__main__':
     app.run(host="127.0.0.1", port=80, debug=True)
+    # print(search("breezy"))
