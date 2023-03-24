@@ -42,15 +42,24 @@
                 <span class="input-group-text" id="search">🔎</span>
             </form>
 
-            
-            <div class="btn-group mx-2">
             {% if session.username%}
-              <a href="/logout" type="button" class="btn btn-outline-primary btn">Logout</a>
+
+                    <div class="btn-group mx-2">
+                      <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img class="rounded-circle" style="height: 35px;" src="{{ url_for('static', filename='user.png') }}" />
+                      </button>
+                      <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                      </ul>
+                    </div>
+                <!-- TODO: FIX NAVBAR!!! -->
+
             {% else %}
-              <a href="/login" type="button" class="btn btn-outline-primary btn">Login</a>
-              <a href="/signup" type="button" class="btn btn-outline-info btn">Register</a>
+                <div class="btn-group mx-2">
+                    <a href="/login" type="button" class="btn btn-outline-primary btn">Login</a>
+                    <a href="/signup" type="button" class="btn btn-outline-info btn">Register</a>
+                </div>
             {% endif %}
-            </div>
           </div>
         </div>
       </nav>

@@ -2,15 +2,14 @@ from functools import wraps
 from flask import Flask, render_template, g, session, request, redirect, url_for
 import json
 import os
+import sql
 
 app = Flask(__name__)
 app.secret_key = 'any random string'
 
 
 def check_login(username, password):
-    if password == "MQq2E3NuZ#7q$q" and username == "breezy4577":
-        return True
-    return False
+    return sql.check_pw(username, password)
 
 
 def get_posts(category):
@@ -37,16 +36,18 @@ def register(username, password, name):
     # implement SQL Here
     # if username already exists: return False
     # sonst: anlegen in db und return True
-    pass
+    return sql.adduser(username, name, password)
 
 
-def create_post(title, description, category):
-    print(os.getcwd())
-    id = int(os.listdir(f".\\data\\{category}")[-1].strip(".json")) + 1
-    current_post = {"title": title, "desc": description, "id": id}
-    with open(f".\\data\\{category}\\{id}.json", "w") as file:
+def create_post(title, description, category, author):
+    try:
+        post_id = int(os.listdir(f".\\data\\{category}")[-1].strip(".json")) + 1
+    except IndexError:
+        post_id = 0
+    current_post = {"title": title, "desc": description, "id": post_id, "author": author}
+    with open(f".\\data\\{category}\\{post_id}.json", "w") as file:
         file.write(json.dumps(current_post))
-    return category, id
+    return category, post_id
 
 
 def login_required(f):
@@ -73,9 +74,15 @@ def info():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    if len(request.args) > 0:
+        session["next_url"] = request.args["next"]
     if request.method == "POST":
         if check_login(request.form["username"], request.form["password"]):
             session["username"] = request.form["username"]
+            if session.get("next_url") is not None:
+                url = session["next_url"]
+                session.pop("next_url", None)
+                return redirect(url)
             return redirect("/")
         g.error = True
     return render_template("login.j2")
@@ -87,6 +94,10 @@ def signup():
         # TODO: bei zusammenführung: check form namen
         if register(request.form["username"], request.form["password"], request.form["name"]):
             session["username"] = request.form["username"]
+            if session.get("next_url") is not None:
+                url = session["next_url"]
+                session.pop("next_url", None)
+                return redirect(url)
             return redirect("/")
         g.error = True
     return render_template("register.j2")
@@ -121,8 +132,11 @@ def post(category, post_id):
 @login_required
 def new_post():
     if request.method == "POST":
-        category, id = create_post(request.form["titel"], request.form["description"], request.form["category"].lower())
-        print(category)
+        category, id = create_post(
+            request.form["titel"],
+            request.form["description"],
+            request.form["category"].lower(),
+            session["username"])
         return redirect(f"/post/{category}/{id}")
     return render_template("question.j2")
 
