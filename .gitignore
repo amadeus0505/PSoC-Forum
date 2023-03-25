@@ -133,3 +133,4 @@ dmypy.json
 
 # personal
 changelog
+./static/user.db

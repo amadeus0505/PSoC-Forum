@@ -1,13 +1,16 @@
 import sqlite3
 import hashlib
-
-con = sqlite3.connect("./static/user.db", check_same_thread=False)
-
-cur = con.cursor()
+import os
 
 
 def create_usertable():
-    cur.execute("CREATE TABLE users(username, name, password)")
+    cur.execute("""CREATE TABLE "users" (
+        "username"	TEXT UNIQUE,
+        "name"	TEXT,
+        "password"	TEXT,
+        PRIMARY KEY("username")
+        )
+    """)
 
 
 def adduser(username, name, pw):
@@ -50,6 +53,15 @@ def check_pw(username, clear_pw):
     if hashlib.sha256(clear_pw.encode(), usedforsecurity=True).hexdigest() == hash_pw:
         return True
     return False
+
+
+if os.path.exists("./static/user.db"):
+    con = sqlite3.connect("./static/user.db", check_same_thread=False)
+    cur = con.cursor()
+else:
+    con = sqlite3.connect("./static/user.db", check_same_thread=False)
+    cur = con.cursor()
+    create_usertable()
 
 
 if __name__ == '__main__':

@@ -4,6 +4,7 @@ import json
 import os
 import sql
 
+
 ### TODO: implement https://www.tiny.cloud/docs/demo/full-featured/#fullfeaturednon-premiumplugins
 
 app = Flask(__name__)
@@ -139,7 +140,7 @@ def post(category, post_id):
         g.desc = post["desc"]
         return str(post)
     else:
-        return "", 404
+        return "404: Post Not Found", 404
 
 
 @app.route("/post", methods=["GET", "POST"])
@@ -167,5 +168,4 @@ def display_search():
 
 
 if __name__ == '__main__':
-    app.run(host="127.0.0.1", port=80, debug=True)
-    # print(search("breezy"))
+    app.run(host="172.0.0.1", port=80, debug=True)
