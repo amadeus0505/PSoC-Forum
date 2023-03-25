@@ -4,6 +4,8 @@ import json
 import os
 import sql
 
+### TODO: implement https://www.tiny.cloud/docs/demo/full-featured/#fullfeaturednon-premiumplugins
+
 app = Flask(__name__)
 app.secret_key = 'any random string'
 
@@ -17,8 +19,8 @@ def search(keyword):
             if keyword in post["desc"] or keyword in post["title"]:
                 post["category"] = cat
                 posts.append(post)
-
     return posts
+
 
 def check_login(username, password):
     return sql.check_pw(username, password)

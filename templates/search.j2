@@ -3,8 +3,8 @@
 
 {% block body %}
     <div class="container-fluid">
-        <h1 class="text-center mt-5">PSoC Forum - Search for keyword "{{ g.keyword }}"</h1>
-        <div class="container border rounded my-5">
+        <h1 class="text-center mt-5">PSoC Forum - Search for keyword "<span class='bg-warning text-black'>{{ g.keyword }}</span>"</h1>
+        <div class="container border rounded my-5" id="content">
             {% for post in g.posts %}
             <div class="card my-3 mx-4">
                 <div class="card-body">
@@ -21,7 +21,8 @@
     </div>
     <!-- script for highlighting keyword  -->
     <script>
-        document.body.innerHTML = document.body.innerHTML.replaceAll(
+        var content = document.getElementById('content');
+        content.innerHTML = content.innerHTML.replaceAll(
             "{{ g.keyword }}",
             "<span class='bg-warning text-black'>{{ g.keyword }}</span>"
         );
