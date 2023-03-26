@@ -33,7 +33,7 @@ def get_posts(category):
     for file_name in file_names:
         with open(f".\\data\\{category}\\{file_name}", "r") as file:
             all_posts.append(json.loads(file.read()))
-    return all_posts
+    return all_posts[::-1]   # reversed, damit neue poststs ganz oben sind
 
 
 def get_post(category, id):
@@ -63,6 +63,20 @@ def create_post(title, description, category, author):
     with open(f".\\data\\{category}\\{post_id}.json", "w") as file:
         file.write(json.dumps(current_post))
     return category, post_id
+
+
+def add_comment(category, id, comment, author):
+    comment_item = {"comment": comment, "author": author}
+    with open(f"./data/{category}/{id}.json", "r+") as read_file:
+        post: dict = json.loads(read_file.read())
+        comments = []
+        if "comments" in post.keys():
+            comments = post["comments"]
+
+        comments.append(comment_item)
+        post["comments"] = comments
+        with open(f"./data/{category}/{id}.json", "w") as write_file:
+            write_file.write(json.dumps(post))
 
 
 def login_required(f):
@@ -143,6 +157,15 @@ def post(category, post_id):
         return "404: Post Not Found", 404
 
 
+@app.route("/post/<category>/<post_id>/new_comment", methods=["POST"])
+@login_required
+def new_comment(category, post_id):
+    comment = request.form["comment"]
+    author = session["username"]
+    add_comment(category, post_id, comment, author)
+    return str(comment)
+
+
 @app.route("/post", methods=["GET", "POST"])
 @login_required
 def new_post():
@@ -168,4 +191,4 @@ def display_search():
 
 
 if __name__ == '__main__':
-    app.run(host="172.0.0.1", port=80, debug=True)
+    app.run(host="127.0.0.1", port=80, debug=True)
