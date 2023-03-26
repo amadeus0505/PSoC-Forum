@@ -161,7 +161,7 @@ def post(category, post_id):
     if post is not None:
         g.titel = post["title"]
         g.desc = post["desc"]
-        return str(post)
+        return render_template("post.j2")
     else:
         return "404: Post Not Found", 404
 
@@ -172,7 +172,7 @@ def new_comment(category, post_id):
     comment = request.form["comment"]
     author = session["username"]
     add_comment(category, post_id, comment, author)
-    return str(comment)
+    return redirect(f"/post/{category}/{post_id}")
 
 
 @app.route("/post", methods=["GET", "POST"])
