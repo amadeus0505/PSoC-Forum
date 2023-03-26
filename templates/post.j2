@@ -11,6 +11,7 @@
             desc
         </div>
 
+<<<<<<< HEAD
         <div class="col-6 m-5 p-3>
             <form class="row g-3 needs-validation" action="/post" method="POST" novalidate>
 
@@ -24,6 +25,19 @@
                 </div>
             </form>
         </div>   
+=======
+       
+            <form class="needs-validation col-6" novalidate action="{{ url_for(request.endpoint, **request.view_args) }}/new_comment" method="POST">
+                <div class="form-group">
+                    <label for="validationComment">Comment</label>
+                    <textarea class="form-control" id="validationComment" rows="3" name="comment" placeholder="your comment herer" required></textarea>
+                </div>
+                <div class="form-group text-center py-3">
+                    <button type="submit" class="btn btn-dark">post comment</button>
+                </div>
+            </form>
+           
+>>>>>>> backend
 
         <div class="col-6 border rounded m-5 p-3">
             comment
@@ -34,8 +48,13 @@
 
  
     <script>
+<<<<<<< HEAD
         // Example starter JavaScript for disabling form submissions if there are invalid fields
         (() => {
+=======
+      // Example starter JavaScript for disabling form submissions if there are invalid fields
+      (() => {
+>>>>>>> backend
         'use strict';
 
         // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -43,6 +62,7 @@
 
         // Loop over them and prevent submission
         Array.prototype.slice.call(forms).forEach((form) => {
+<<<<<<< HEAD
             form.addEventListener('submit', (event) => {
             if (!form.checkValidity()) {
                 event.preventDefault();
@@ -52,6 +72,17 @@
             }, false);
         });
         })();
+=======
+          form.addEventListener('submit', (event) => {
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      })();
+>>>>>>> backend
     </script>
  
 {% endblock %}

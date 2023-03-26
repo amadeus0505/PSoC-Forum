@@ -33,7 +33,7 @@ def get_posts(category):
     for file_name in file_names:
         with open(f".\\data\\{category}\\{file_name}", "r") as file:
             all_posts.append(json.loads(file.read()))
-    return all_posts
+    return all_posts[::-1]   # reversed, damit neue poststs ganz oben sind
 
 
 def get_post(category, id):
@@ -47,10 +47,16 @@ def get_post(category, id):
     return post
 
 
+def get_latest_post(category):
+    # fetch the highest id
+    post_id = int(os.listdir(f".\\data\\{category}")[-1].strip(".json"))
+    # return according post
+    return get_post(category, post_id)
+
+
 def register(username, password, name):
-    # implement SQL Here
     # if username already exists: return False
-    # sonst: anlegen in db und return True
+    # sonst: return True
     return sql.adduser(username, name, password)
 
 
@@ -63,6 +69,20 @@ def create_post(title, description, category, author):
     with open(f".\\data\\{category}\\{post_id}.json", "w") as file:
         file.write(json.dumps(current_post))
     return category, post_id
+
+
+def add_comment(category, id, comment, author):
+    comment_item = {"comment": comment, "author": author}
+    with open(f"./data/{category}/{id}.json", "r+") as read_file:
+        post: dict = json.loads(read_file.read())
+        comments = []
+        if "comments" in post.keys():
+            comments = post["comments"]
+
+        comments.append(comment_item)
+        post["comments"] = comments
+        with open(f"./data/{category}/{id}.json", "w") as write_file:
+            write_file.write(json.dumps(post))
 
 
 def login_required(f):
@@ -79,6 +99,9 @@ def login_required(f):
 
 @app.route('/')
 def home():
+    g.hardware_post = get_latest_post("hardware")
+    g.software_post = get_latest_post("software")
+    g.projects_post = get_latest_post("projects")
     return render_template("home.j2")
 
 
@@ -141,6 +164,15 @@ def post(category, post_id):
         return render_template("post.j2")
     else:
         return "404: Post Not Found", 404
+
+
+@app.route("/post/<category>/<post_id>/new_comment", methods=["POST"])
+@login_required
+def new_comment(category, post_id):
+    comment = request.form["comment"]
+    author = session["username"]
+    add_comment(category, post_id, comment, author)
+    return redirect(f"/post/{category}/{post_id}")
 
 
 @app.route("/post", methods=["GET", "POST"])

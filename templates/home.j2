@@ -39,13 +39,19 @@
     <div class="container my-5 text-center">
         <a href="/post" type="button" class="btn btn-outline-dark">Ask a question!</a>
     </div>
-    <h3>Latest posts</h3>
-    <div class="container border rounded mb-5">
-      title
-      <p>question</p>
-      <br></br>
-      title
-      <p>question</p>
+    <h2>Latest posts</h2>
+    <div class="container-fluid border rounded">
+      <h3>Hardware</h3>
+      <h4>{{ g.hardware_post.title }}</h4>
+      <p>{{ g.hardware_post.desc }}</p>
+      <hr class="my-12"/>
+      <h3>Software</h3>
+      <h4>{{ g.software_post.title }}</h4>
+      <p>{{ g.software_post.desc }}</p>
+      <hr class="mt-2 mb-3"/>
+      <h3>Projects</h3>
+      <h4>{{ g.projects_post.title }}</h4>
+      <p>{{ g.projects_post.desc }}</p>
     </div>
   </div>
 

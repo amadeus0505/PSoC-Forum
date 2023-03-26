@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"title": "Hallo", "desc": "asfdk\u00f6", "id": 3, "author": "Mxtze"}
+=======
+{"title": "Mein Beitrag", "desc": "Hallo meine Freunde!\r\nDies ist mein erster Post!\r\n\r\nMFG\r\nbreezy", "id": 3, "author": "amadeus", "comments": [{"comment": "Dies ist ein Kommentar", "author": "amadeus"}]}
+>>>>>>> backend
