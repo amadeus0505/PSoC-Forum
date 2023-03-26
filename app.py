@@ -138,7 +138,7 @@ def post(category, post_id):
     if post is not None:
         g.titel = post["title"]
         g.desc = post["desc"]
-        return str(post)
+        return render_template("post.j2")
     else:
         return "404: Post Not Found", 404
 
@@ -168,4 +168,4 @@ def display_search():
 
 
 if __name__ == '__main__':
-    app.run(host="172.0.0.1", port=80, debug=True)
+    app.run(host="127.0.0.1", port=80, debug=True)

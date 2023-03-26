@@ -1,0 +1,57 @@
+{% extends "navbar-template.j2" %}
+{% block title %}Post{% endblock %}
+{% block body %}
+
+<h1 class="text-center mt-5">Title</h1>
+
+<div class="conatiner-fluid">
+    <div class="row justify-content-center">
+
+        <div class="col-6 border rounded m-5 p-3">
+            desc
+        </div>
+
+        <div class="col-6 m-5 p-3>
+            <form class="row g-3 needs-validation" action="/post" method="POST" novalidate>
+
+                <div class="form-group">
+                    <label for="validationText">Text</label>
+                    <textarea class="form-control" id="validationText" rows="3" required></textarea>
+                </div>
+
+                <div class="col-12">
+                    <button class="btn btn-dark" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>   
+
+        <div class="col-6 border rounded m-5 p-3">
+            comment
+        </div>
+    </div>
+</div>
+    
+
+ 
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (() => {
+        'use strict';
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms).forEach((form) => {
+            form.addEventListener('submit', (event) => {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+            }, false);
+        });
+        })();
+    </script>
+ 
+{% endblock %}
