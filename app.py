@@ -47,10 +47,16 @@ def get_post(category, id):
     return post
 
 
+def get_latest_post(category):
+    # fetch the highest id
+    post_id = int(os.listdir(f".\\data\\{category}")[-1].strip(".json"))
+    # return according post
+    return get_post(category, post_id)
+
+
 def register(username, password, name):
-    # implement SQL Here
     # if username already exists: return False
-    # sonst: anlegen in db und return True
+    # sonst: return True
     return sql.adduser(username, name, password)
 
 
@@ -93,6 +99,9 @@ def login_required(f):
 
 @app.route('/')
 def home():
+    g.hardware_post = get_latest_post("hardware")
+    g.software_post = get_latest_post("software")
+    g.projects_post = get_latest_post("projects")
     return render_template("home.j2")
 
 
