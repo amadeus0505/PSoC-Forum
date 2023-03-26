@@ -2,15 +2,12 @@
 {% block title %}Post{% endblock %}
 {% block body %}
 
-<h1 class="text-center mt-5">Title</h1>
+<h1 class="text-center mt-5">{{ g.title }}</h1>
 
 <div class="conatiner-fluid">
     <div class="row justify-content-center">
 
-        <div class="col-6 border rounded m-5 p-3">
-            desc
-        </div>
-       
+        <div class="col-6 border rounded m-5 p-3"  style="white-space: pre-wrap;">{{ g.desc }}</div>
             <form class="needs-validation col-6" novalidate action="{{ url_for(request.endpoint, **request.view_args) }}/new_comment" method="POST">
                 <div class="form-group">
                     <label for="validationComment">Comment</label>
@@ -20,9 +17,17 @@
                     <button type="submit" class="btn btn-dark">post comment</button>
                 </div>
             </form>
-        <div class="col-6 border rounded m-5 p-3">
-            comment
-        </div>
+            <div class="col-6 border rounded m-5 p-3">
+                {% for comment in g.comments %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Comment by <span class="text-primary">{{ comment.author }}</span></h5>
+                            <p class="card-text" style="white-space: pre-wrap;">{{ comment.comment|e }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
     </div>
 </div>
     

@@ -126,7 +126,7 @@ def login():
     return render_template("login.j2")
 
 
-@app.route("/signup", methods=["GET", "POST"])
+@app.route("/register", methods=["GET", "POST"])
 def signup():
     if request.method == "POST":
         # TODO: bei zusammenführung: check form namen
@@ -159,8 +159,12 @@ def category(cat):
 def post(category, post_id):
     post = get_post(category, post_id)
     if post is not None:
-        g.titel = post["title"]
+        g.title = post["title"]
         g.desc = post["desc"]
+        try:
+            g.comments = post["comments"]
+        except KeyError:
+            g.comments = []
         return render_template("post.j2")
     else:
         return "404: Post Not Found", 404

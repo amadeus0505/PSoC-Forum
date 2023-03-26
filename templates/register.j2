@@ -6,23 +6,23 @@
 <div class="container border rounded w-50 mt-5">
   <!-- Container Unterteilung der Überschrift "Login" -->
   <div class="container my-5">
-    <h1 class="text-center">PSoC Forum Register</h1>
+    <h1 class="text-center mb-5">PSoC Forum Register</h1>
 
 
   <div class="container-fluid me-auto w-75">
-    <form class="needs-validation" novalidate>
+    <form class="needs-validation" method="POST" novalidate>
 
       <div class="form-group mb-5">
         <label for="validationName">Name</label>
-        <input type="text" class="form-control" id="validationName" placeholder="Name" required>
+        <input type="text" class="form-control" id="validationName" placeholder="Name" name="name" required>
       </div>
       <div class="form-group mb-5">
         <label for="validationUsername">Username</label>
-        <input type="text" class="form-control" id="validationUsername" placeholder="Username" required>
+        <input type="text" class="form-control" id="validationUsername" placeholder="Username" name="username" required>
       </div>
       <div class="form-group mb-5">
         <label for="validationPassword">Password</label>
-        <input type="password" class="form-control" id="validationPassword" placeholder="Password" required>
+        <input type="password" class="form-control" id="validationPassword" placeholder="Password" name="password" required>
       </div>
       {% if g.error %}
             <div class="alert alert-danger" role="alert">
@@ -35,7 +35,7 @@
     </form>
     <div class="text-center pb-5">
       Already a member?
-      <a href="./Login.html">Login</a>
+      <a href="/login">Login</a>
     </div>
   </div>
 </div>

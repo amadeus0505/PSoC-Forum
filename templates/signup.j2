@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="/signup" method="post">
+    <form action="/register" method="post">
         <label for="">Name</label>
         <input type="text" name="name">
         <br>
@@ -17,7 +17,7 @@
         <label for="">Password</label>
         <input type="password" name="password" id="">
         <br>
-        <input type="submit" value="Signup">
+        <input type="submit" value="Register">
     </form>
     {% if g.error %}
         Wrong Password or Username
