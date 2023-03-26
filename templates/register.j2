@@ -2,47 +2,61 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-    <!-- Container für die komplette Login-Seite -->
-  <form action="/signup" method="post" class="container border w-50 mt-5">
-    <!-- Container Unterteilung der Überschrift "Login" -->
-    <div class="container my-5">
-      <h1 class="text-center">PSoC Forum Register</h1>
-    </div>
-    <!-- Container Unterteilung der Textfelder -->
-    <div class="container-fluid me-auto w-75">
-      <div class="form-floating mb-5">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Name" name="name">
-        <label for="floatingInput">Name</label>
+   <!-- Container für die komplette Login-Seite -->
+<div class="container border rounded w-50 mt-5">
+  <!-- Container Unterteilung der Überschrift "Login" -->
+  <div class="container my-5">
+    <h1 class="text-center">PSoC Forum Register</h1>
+
+
+  <div class="container-fluid me-auto w-75">
+    <form class="needs-validation" novalidate>
+
+      <div class="form-group mb-5">
+        <label for="validationName">Name</label>
+        <input type="text" class="form-control" id="validationName" placeholder="Name" required>
       </div>
-      <div class="form-floating mb-5">
-        <input type="text" class="form-control" id="floatingInput" placeholder="username" name="username">
-        <label for="floatingInput">Username</label>
+      <div class="form-group mb-5">
+        <label for="validationUsername">Username</label>
+        <input type="text" class="form-control" id="validationUsername" placeholder="Username" required>
       </div>
-      <div class="form-floating mb-3">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
-        <label for="floatingPassword">Password</label>
+      <div class="form-group mb-5">
+        <label for="validationPassword">Password</label>
+        <input type="password" class="form-control" id="validationPassword" placeholder="Password" required>
       </div>
-        {% if g.error %}
+      {% if g.error %}
             <div class="alert alert-danger" role="alert">
                 Username already in use!
             </div>
         {% endif %}
-            <!-- Checkbox für Regelwerk, Datenschutz- und Nutzungsbedingungen
-            <div class="form-check mb-5">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                I have read and agree to the terms
-              </label>
-            </div>
-      Submit Button -->
-      <div class="text-center pb-5">
-        <input type="submit" value="Register" class="">
+      <div class="form-group text-center pb-5">
+        <input type="submit" value="Register">
       </div>
-      <!-- Link zu "Sign up" falls man noch nicht angemeldet ist-->
-      <div class="text-center pb-5">
-        Already a member?
-        <a href="/login">Login</a>
-      </div>
+    </form>
+    <div class="text-center pb-5">
+      Already a member?
+      <a href="./Login.html">Login</a>
     </div>
-  </form>
+  </div>
+</div>
+    <script>
+      // Example starter JavaScript for disabling form submissions if there are invalid fields
+      (() => {
+        'use strict';
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms).forEach((form) => {
+          form.addEventListener('submit', (event) => {
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      })();
+</script>
 {% endblock %}
