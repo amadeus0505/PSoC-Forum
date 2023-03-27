@@ -16,8 +16,10 @@ def search(keyword):
     # in jedem ordner in jeder datei wird gesucht
     for cat in os.listdir("./data"):
         for post_path in os.listdir(f"./data/{cat}/"):
+            # datei öffnen
             with open(f"./data/{cat}/{post_path}") as file:
                 post = json.loads(file.read())
+            # checken, ob suchwort im post vorkommt
             if keyword in post["desc"] or keyword in post["title"]:
                 post["category"] = cat
                 posts.append(post)
